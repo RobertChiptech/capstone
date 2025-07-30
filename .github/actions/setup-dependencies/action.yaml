@@ -47,14 +47,13 @@ runs:
         cache-dependency-path: ./${{ inputs.service_path }}/package-lock.json
 
     - if: ${{ inputs.install_python == 'true' }}
+      uses: snok/install-poetry@76e04a911780d5b312d89783f7b1cd627778900a # v1.4.1
+
+    - if: ${{ inputs.install_python == 'true' }}
       uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
       with:
         python-version-file: ./${{ inputs.service_path }}/pyproject.toml
         cache: poetry
         cache-dependency-path: ./${{ inputs.service_path }}/poetry.lock
-
-    - if: ${{ inputs.install_python == 'true' }}
-      uses: snok/install-poetry@76e04a911780d5b312d89783f7b1cd627778900a # v1.4.1
-
 
     # TODO: add namespace.sh setup steps

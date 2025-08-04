@@ -85,11 +85,17 @@ jobs:
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      # TODO: Replace with namespace setup
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392 # v3.6.0
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3.11.1
+      # TODO: We dont need QEMU since we are builing with Namespace native builders
+      # - name: Set up QEMU
+      #   uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392 # v3.6.0
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3.11.1
+
+      - name: Authenticate to Namespace
+        uses: namespacelabs/nscloud-setup@d1c625762f7c926a54bd39252efff0705fd11c64 # v0.0.10
+      - name: Configure Docker to use Namespace Remote Builders
+        uses: namespacelabs/nscloud-setup-buildx-action@01628ae51ea5d6b0c90109c7dccbf511953aff29 # v0.0.18
+
       - name: Compute image tag
         id: image-tag
         working-directory: ${{ matrix.service }}

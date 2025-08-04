@@ -11,7 +11,7 @@ on:
 
 jobs:
   filter:
-    runs-on: ubuntu-24.04
+    runs-on: namespace-profile-devops-directive
     outputs:
       services: ${{ steps.filter.outputs.changes }}
     steps:
@@ -24,7 +24,7 @@ jobs:
           filters: .github/utils/file-filters.yaml
 
   run-tests:
-    runs-on: ubuntu-24.04
+    runs-on: namespace-profile-devops-directive
     if: ${{ needs.filter.outputs.services != '[]' && needs.filter.outputs.services != '' }}
     needs: filter
     strategy:

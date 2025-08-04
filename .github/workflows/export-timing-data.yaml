@@ -11,7 +11,7 @@ on:
 jobs:
   export-otel-trace:
     name: OpenTelemetry Export Trace
-    runs-on: ubuntu-24.04
+    runs-on: namespace-profile-devops-directive
     steps:
       - name: Export Workflow Trace
         uses: inception-health/otel-export-trace-action@7eabc7de1f4753f0b45051b44bb0ba46d05a21ef # v1.8.0

@@ -27,7 +27,7 @@ jobs:
   run-tests:
     runs-on:
       - nscloud-ubuntu-24.04-amd64-4x16-with-cache
-      - nscloud-cache-tag-capstone-${{ matrix.service }}
+      - nscloud-cache-tag-capstone-test-job
       - nscloud-cache-size-20gb
     if: ${{ needs.filter.outputs.services != '[]' && needs.filter.outputs.services != '' }}
     needs: filter

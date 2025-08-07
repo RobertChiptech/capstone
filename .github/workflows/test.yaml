@@ -29,6 +29,7 @@ jobs:
       - nscloud-ubuntu-24.04-amd64-4x16-with-cache
       - nscloud-cache-tag-capstone-test-job
       - nscloud-cache-size-20gb
+      - nscloud-cache-allow-commit-from-main
     if: ${{ needs.filter.outputs.services != '[]' && needs.filter.outputs.services != '' }}
     needs: filter
     strategy:

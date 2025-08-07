@@ -27,7 +27,7 @@ jobs:
       - name: Construct matrix JSON
         id: matrix
         run: |
-          matrix_includes_json=$(jq -c 'map({service: ., cacheLabel: gsub("/"; "_")})' \
+          matrix_includes_json=$(jq -c 'map({service: ., cacheLabel: gsub("/"; "--")})' \
             <<< '${{ steps.filter.outputs.changes }}')
 
           echo "matrix_includes_json=$matrix_includes_json" >> "$GITHUB_OUTPUT"

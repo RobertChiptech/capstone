@@ -11,7 +11,8 @@ on:
 
 jobs:
   filter:
-    runs-on: namespace-profile-devops-directive
+    runs-on:
+      - nscloud-ubuntu-24.04-amd64-4x16
     outputs:
       services: ${{ steps.filter.outputs.changes }}
     steps:
@@ -24,7 +25,10 @@ jobs:
           filters: .github/utils/file-filters.yaml
 
   run-tests:
-    runs-on: namespace-profile-devops-directive
+    runs-on:
+      - nscloud-ubuntu-24.04-amd64-4x16-with-cache
+      - nscloud-cache-tag-capstone-${{ matrix.service }}
+      - nscloud-cache-size-20gb
     if: ${{ needs.filter.outputs.services != '[]' && needs.filter.outputs.services != '' }}
     needs: filter
     strategy:

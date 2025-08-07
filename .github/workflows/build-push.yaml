@@ -32,7 +32,8 @@ permissions:
 
 jobs:
   filter:
-    runs-on: namespace-profile-devops-directive
+    runs-on:
+      - nscloud-ubuntu-24.04-amd64-4x16
     outputs:
       services: ${{ steps.set-output.outputs.services }}
       environment: ${{ steps.set-output.outputs.environment }}
@@ -65,7 +66,8 @@ jobs:
           fi
 
   build-push-container-images:
-    runs-on: namespace-profile-devops-directive
+    runs-on:
+      - nscloud-ubuntu-24.04-amd64-4x16
     if: ${{ needs.filter.outputs.services != '[]' && needs.filter.outputs.services != '' }}
     needs: filter
     strategy:

@@ -37,7 +37,8 @@ concurrency:
 
 jobs:
   update-manifests:
-    runs-on: namespace-profile-devops-directive
+    runs-on:
+      - nscloud-ubuntu-24.04-amd64-4x16
     environment: ${{ inputs.environment }}
     permissions:
       contents: write

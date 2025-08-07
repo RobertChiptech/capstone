@@ -15,7 +15,7 @@ jobs:
       - nscloud-ubuntu-24.04-amd64-4x16
     outputs:
       services: ${{ steps.filter.outputs.changes }}
-      matrix_includes_json: ${{ steps.matrix.outputs.matrix_includes_json }}
+      matrix_include_json: ${{ steps.matrix.outputs.matrix_include_json }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Paths Changes Filter
@@ -27,10 +27,15 @@ jobs:
       - name: Construct matrix JSON
         id: matrix
         run: |
-          matrix_includes_json=$(jq -c 'map({service: ., cacheLabel: gsub("/"; "--")})' \
+          # Runner labels cannot have "/" characters. 
+          # We take the json array of services and generate a json array of
+          # - service: service/foo/bar
+          #   cacheLabel: service--foo--bar
+          # To use with matrix.include
+          matrix_include_json=$(jq -c 'map({service: ., cacheLabel: gsub("/"; "--")})' \
             <<< '${{ steps.filter.outputs.changes }}')
 
-          echo "matrix_includes_json=$matrix_includes_json" >> "$GITHUB_OUTPUT"
+          echo "matrix_include_json=$matrix_include_json" >> "$GITHUB_OUTPUT"
 
   run-tests:
     runs-on:
@@ -42,7 +47,7 @@ jobs:
     needs: filter
     strategy:
       matrix:
-        include: ${{ fromJson(needs.filter.outputs.matrix_includes_json) }}
+        include: ${{ fromJson(needs.filter.outputs.matrix_include_json) }}
       fail-fast: false
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2

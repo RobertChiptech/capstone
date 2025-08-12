@@ -72,7 +72,19 @@ This repository contains the capstone project for the [DevOps Directive GitHub A
 
 ## Iterating Locally with act
 
-TODO...
+To run workflows locally with act (https://github.com/nektos/act), there are Taskfiles and event configurations located in `.github/workflows/<NAME_OF_WORKFLOW>`
 
+For example to run the `test` workflow:
 
+```bash
+➜  capstone git:(main) ✗ cd .github/workflows/test
+➜  test git:(main) ✗ task trigger-workflow 
+task: [trigger-workflow] act pull_request \
+  --container-architecture linux/amd64 \
+  -s GITHUB_TOKEN="<GITHUB_TOKEN>" \
+  -e <PATH_TO_EVENT_JSON> \
+  -P ubuntu-24.04=catthehacker/ubuntu:act-22.04 \
+  --directory ../../.. \
+  -W .github/workflows/test.yaml
+```
 

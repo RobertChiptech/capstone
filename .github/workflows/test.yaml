@@ -60,5 +60,5 @@ jobs:
       - name: NoGood
         shell: bash
         run: |
-          echo "Some workflows have failed!"
+          echo "::error Some required job has failed!"
           exit 1

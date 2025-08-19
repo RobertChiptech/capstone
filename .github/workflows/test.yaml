@@ -51,8 +51,27 @@ jobs:
 
   run-tests-status-check:
     runs-on: ubuntu-24.04
+    if: always()
     needs: run-tests
     steps:
       - name: Run Tests Status Check
         run: |
-          echo "This job is a No-Op to use as a status check for pull requests"
+          svcs='${{ needs.filter.outputs.services }}'
+
+          echo "services=${svcs}"
+          echo "run-tests.result=${{ needs.run-tests.result }}"
+
+          # If no services changed, treat as success (no tests to run)
+          if [[ -z "$svcs" || "$svcs" == "[]" ]]; then
+            echo "No matching services changed; passing status check."
+            exit 0
+          fi
+
+          # Otherwise, require the matrix job to have succeeded
+          if [[ "${{ needs.run-tests.result }}" == "success" ]]; then
+            echo "All test matrix jobs passed."
+            exit 0
+          else
+            echo "::error One or more test matrix jobs failed or were cancelled."
+            exit 1
+          fi

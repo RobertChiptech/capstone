@@ -48,3 +48,11 @@ jobs:
         working-directory: ${{ matrix.service }}
         run: |
           task test
+
+  status-check:
+    runs-on: ubuntu-24.04
+    needs: run-tests
+    steps:
+      - name: Run Tests Status Check
+        run: |
+          echo "This job is a No-Op to use as a status check for pull requests"

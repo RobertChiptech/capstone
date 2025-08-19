@@ -52,7 +52,7 @@ jobs:
   run-tests-status-check:
     runs-on: ubuntu-24.04
     if: always()
-    needs: run-tests
+    needs: [filter, run-tests]
     steps:
       - name: Run Tests Status Check
         run: |

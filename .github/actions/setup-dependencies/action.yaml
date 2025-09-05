@@ -27,7 +27,7 @@ runs:
   using: "composite"
   steps:
     - if: ${{ inputs.install_task == 'true' }}
-      uses: supplypike/setup-bin@1fafb085795af4a3f183502f3a9dffa8f7b83217 # v5.0.0
+      uses: supplypike/setup-bin@8e3f88b4f143d9b5c3497f0fc12d45c83c123787 # v4.0.1
       with:
         uri: "https://github.com/go-task/task/releases/download/${{ inputs.task_version }}/task_linux_amd64.tar.gz"
         name: task

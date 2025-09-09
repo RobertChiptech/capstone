@@ -76,10 +76,6 @@ jobs:
           fetch-depth: 0
       - name: Install task
         uses: ./.github/actions/setup-dependencies
-        with:
-          uri: "https://github.com/go-task/task/releases/download/v3.44.1/task_linux_amd64.tar.gz"
-          name: task
-          version: v3.44.1
       - name: Auth to Dockerhub
         if: ${{ !env.ACT }}
         uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0

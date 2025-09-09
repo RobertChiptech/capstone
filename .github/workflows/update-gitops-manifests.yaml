@@ -25,6 +25,10 @@ on:
           - staging
           - production
 
+concurrency:
+  group: ${{ github.workflow }}-gitops-${{ inputs.environment }}-${{ inputs.service }}
+  cancel-in-progress: false
+
 jobs:
   update-manifests:
     runs-on: ubuntu-24.04
@@ -33,6 +37,11 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Install task
         uses: ./.github/actions/setup-dependencies
+      - name: Generate commit message
+        id: generate-commit-message
+        run: |
+          commit_message="chore: update ${{ inputs.environment }}, ${{ inputs.service }}, ${{ inputs.version }} [skip ci]"
+          echo "commit_message=${commit_message}" >> $GITHUB_OUTPUT
       - name: Update manifests
         working-directory: ${{ inputs.service }}
         run: |
@@ -41,4 +50,11 @@ jobs:
             ENVIRONMENT=${{ inputs.environment }}
       - name: check diff
         run: |
-          git diff
+          git --no-pager diff
+      - name: commit & push
+        if: ${{ !env.ACT }}
+        working-directory: ${{ inputs.service }}
+        run: |
+          task utils:git:commit-push \
+            COMMIT_MSG=${{ steps.generate-commit-message.outputs.commit_message }} \
+            BRANCH=main

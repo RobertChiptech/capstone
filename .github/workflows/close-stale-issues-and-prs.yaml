@@ -13,4 +13,7 @@ jobs:
     runs-on:
       - nscloud-ubuntu-24.04-amd64-4x16
     steps:
-      - uses: actions/stale@5bef64f19d7facfb25b37b414482c7164d639639 # v9.1.0
+      - name: Run Stale Action
+        uses: actions/stale@8f717f0dfca33b78d3c933452e42558e4456c8e7 # v9.1.0
+        with:
+          days-before-stale: 30

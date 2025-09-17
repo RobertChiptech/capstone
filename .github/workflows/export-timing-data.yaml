@@ -15,7 +15,7 @@ jobs:
       - nscloud-ubuntu-24.04-amd64-4x16
     steps:
       - name: Export Workflow Trace
-        uses: inception-health/otel-export-trace-action@7eabc7de1f4753f0b45051b44bb0ba46d05a21ef # v1.8.0
+        uses: corentinmusard/otel-cicd-action@769ccb38830ff3d1600ffb2f35ba9da6724e6b3e # v2.2.4
         with:
           otlpEndpoint: grpc://api.honeycomb.io:443/
           # Formatted as x-honeycomb-team=YOUR_API_KEY

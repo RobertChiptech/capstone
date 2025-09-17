@@ -29,7 +29,7 @@ runs:
     # Install go-task
     - name: Install go-task
       if: ${{ inputs.install_task == 'true' }}
-      uses: supplypike/setup-bin@8e3f88b4f143d9b5c3497f0fc12d45c83c123787
+      uses: supplypike/setup-bin@1fafb085795af4a3f183502f3a9dffa8f7b83217 # v5.0.0
       with:
         uri: "https://github.com/go-task/task/releases/download/${{ inputs.task_version }}/task_linux_amd64.tar.gz"
         name: task
@@ -52,7 +52,7 @@ runs:
 
     # install node
     - if: ${{ inputs.install_node == 'true' }}
-      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      uses: actions/setup-node@d7a11313b581b306c961b506cfc8971208bb03f6 # v4.4.0
       with:
         node-version-file: ./${{ inputs.service_path }}/package.json
         cache: "" # using Namespace cache volume instead

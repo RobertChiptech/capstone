@@ -39,8 +39,7 @@ jobs:
         with:
           context: services/node/api-node
           push: ${{ !env.ACT }}
-          tag: ${{steps.image_tag.outputs.image_tag}}
+          tag: ${{steps.image-tag.outputs.image_tag}}
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: typa=gha,mode=max
-          

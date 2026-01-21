@@ -3,7 +3,7 @@
   "packages": [
     "go-task@latest",
     "civo@latest",
-    "act@latest",
+    "act@0.2.84",
     "gh@latest",
     "gum@latest",
     "yq-go@latest",
